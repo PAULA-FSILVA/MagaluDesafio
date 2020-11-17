@@ -1,5 +1,5 @@
 # MagaluDesafio
-Projeto final de desenvolvimento em Python do curso Luiza &lt;Code> 
+## Projeto final de desenvolvimento em Python do curso Luiza &lt;Code> ##
 
 ## Somos o grupo Code4girls, composto por:
 
