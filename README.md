@@ -3,7 +3,7 @@
 
 ## Somos o grupo Code4girls, composto por:
 
-### *Ana Paula Silva* 
+### *Paula Fabrícia da Silva* 
 
 ### *Joice*
 
