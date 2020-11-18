@@ -14,35 +14,40 @@ def index(request):
             products.append(model.to_dict())
 
         output = {"products": products}
-
-    elif request.method == "POST":
-        payload = json.loads(request.body)
-        title = payload.get ("title")
-        price = payload.get("price")
-        id_product = payload.get ("id_product")
-        seller = payload.get ("seller_id")
-        qt_stock = payload.get ("qt_stock")
-        status = payload.get ("status")
-
-        if not title:
-            return HttpResponseBadRequest ("Title is required: ")
-
-        product = Product()
-        product.title = title
-        product.price = price
-        product.id_product = id_product
-        product.seller = seller
-        product.qt_stock = qt_stock
-        product.status = status
-        product.save()
-
-        output = {"product": product.to_dict()}
+        
     else:
         return HttpResponseNotAllowed(["GET", "POST"])
 
 
 
     return JsonResponse(output)
+
+
+@csrf_exempt
+def create_product(request):
+    payload = json.loads(request.body)
+    title = payload.get ("title")
+    price = payload.get("price")
+    id_product = payload.get ("id_product")
+    seller = payload.get ("seller_id")
+    qt_stock = payload.get ("qt_stock")
+    status = payload.get ("status")
+
+    if not title:
+        return HttpResponseBadRequest ("Title is required: ")
+
+    product = Product()
+    product.title = title
+    product.price = price
+    product.id_product = id_product
+    product.seller = seller
+    product.qt_stock = qt_stock
+    product.status = status
+    product.save()
+
+    output = {"product": product.to_dict()}
+    return JsonResponse(output)
+
 
 @csrf_exempt
 def detail(request, id_product):
@@ -86,6 +91,8 @@ def detail(request, id_product):
         return HttpResponseNotAllowed(["GET", "PUT", "DELETE"])
 
     return JsonResponse(product.to_dict())
+
+
 @csrf_exempt
 def seller (request):
     if request.method == "GET":
