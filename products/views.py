@@ -82,8 +82,6 @@ def detail(request, id_product):
             product.seller_id = seller_id
         if qt_stock:
             product.qt_stock = qt_stock
-            if qt_stock <= 0:
-                return HttpResponseNotAllowed ("Digite um valor válido")
         if status:
             product.status = status
             #aqui que temos que fazer o for pro nativo/inativo?
