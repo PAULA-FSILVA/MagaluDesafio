@@ -13,7 +13,7 @@ class Product(models.Model):
     price = models.FloatField()
     id_product = models.IntegerField(unique=True)
     seller = models.ForeignKey(Seller, null=True, on_delete=models.SET_NULL)
-    qt_stock = models.IntegerField()
+    qt_stock = models.PositiveIntegerField()
     status = models.CharField(max_length=1, choices=status_product)
 
     def to_dict(self):

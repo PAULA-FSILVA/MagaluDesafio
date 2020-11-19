@@ -9,7 +9,6 @@ import json
 @csrf_exempt
 def index(request):
     models = Product.objects.all().order_by('title')
-
     products = []
     for model in models:
         products.append(model.to_dict())
@@ -63,6 +62,7 @@ def detail(request, id_product):
 
     if request.method == "GET":
         response = {"product": product.to_dict()}
+
     elif request.method == "PUT":
         payload = json.loads(request.body)
         title = payload.get("title")
@@ -82,8 +82,11 @@ def detail(request, id_product):
             product.seller_id = seller_id
         if qt_stock:
             product.qt_stock = qt_stock
+            if qt_stock <= 0:
+                return HttpResponseNotAllowed ("Digite um valor válido")
         if status:
             product.status = status
+            #aqui que temos que fazer o for pro nativo/inativo?
 
         product.save()
 
