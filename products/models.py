@@ -1,5 +1,5 @@
 from django.db import models
-from MagaluDesafio.seller.models import Seller
+from seller.models import Seller
 
 
 status_product = [
@@ -19,7 +19,6 @@ class Product(models.Model):
     def to_dict(self):
         print(self.seller)
         return {
-            "id": self.id,
             "title": self.title,
             "price": self.price,
             "id_product": self.id_product,

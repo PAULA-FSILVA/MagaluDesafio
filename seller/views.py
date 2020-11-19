@@ -17,6 +17,7 @@ def seller (request):
         sellers = [m. to_dict() for m in models]
 
         return JsonResponse({"seller": seller})
+
     elif request.method == "POST":
         payload = json.loads(request.body)
         name = payload.get("name")
