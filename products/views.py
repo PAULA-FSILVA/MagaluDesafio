@@ -9,7 +9,6 @@ import json
 @csrf_exempt
 def index(request):
     models = Product.objects.all().order_by('title')
-
     products = []
     for model in models:
         products.append(model.to_dict())
@@ -47,9 +46,14 @@ def create_product(request):
         output = {"product": product.to_dict()}
         return JsonResponse(output)
 
-    except IntegrityError:
+    except IntegrityError as err:
+        type= str(err)
+        if type.upper().find('CHECK') != -1:
+            return HttpResponseBadRequest("Estoque não pode ser menor que zero!")
+        if type.upper().find('UNIQUE') != -1:
+            return HttpResponseBadRequest("Produto já existe")
         
-        return HttpResponseBadRequest("Produto já existe")
+        return HttpResponseBadRequest("CAOS")
 
     
 
@@ -63,6 +67,7 @@ def detail(request, id_product):
 
     if request.method == "GET":
         response = {"product": product.to_dict()}
+
     elif request.method == "PUT":
         payload = json.loads(request.body)
         title = payload.get("title")
@@ -84,6 +89,7 @@ def detail(request, id_product):
             product.qt_stock = qt_stock
         if status:
             product.status = status
+            #aqui que temos que fazer o for pro nativo/inativo?
 
         product.save()
 
