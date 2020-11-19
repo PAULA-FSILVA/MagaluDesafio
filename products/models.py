@@ -11,8 +11,8 @@ status_product = [
 class Product(models.Model):
     title = models.CharField(max_length=250)
     price = models.FloatField()
-    id_product = models.IntegerField()
-    seller = models.ForeignKey(Seller, null=True,on_delete=models.SET_NULL)
+    id_product = models.IntegerField(unique=True)
+    seller = models.ForeignKey(Seller, null=True, on_delete=models.SET_NULL)
     qt_stock = models.IntegerField()
     status = models.CharField(max_length=1, choices=status_product)
 
