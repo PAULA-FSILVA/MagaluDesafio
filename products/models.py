@@ -17,7 +17,6 @@ class Product(models.Model):
     status = models.CharField(max_length=1, choices=status_product)
 
     def to_dict(self):
-        print(self.seller)
         return {
             "title": self.title,
             "price": self.price,
