@@ -9,6 +9,8 @@
 
 ### *Nádia dos Santos Ossenkop*
 
+### *Vivian Belmiro*
+
 
 # Esse foi o nosso desafio #
 
