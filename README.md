@@ -5,7 +5,7 @@
 
 ### *Paula Fabrícia da Silva* 
 
-### *Joice*
+### *Joice Fernanda Rohrbacher de Oliveira*
 
 ### *Nádia dos Santos Ossenkop*
 
