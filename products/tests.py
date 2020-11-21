@@ -4,6 +4,8 @@ from .views import index, detail, create_product
 from .models import Product
 from unittest.mock import Mock, patch
 import json
+
+
 class ProductModelsTests(TestCase):
     def test_to_dict_when_valid_product_expected_dict(self):
         dict = {
@@ -24,6 +26,8 @@ class ProductModelsTests(TestCase):
         product.qt_stock = 0
         product.status = "A"
         self.assertEquals(product.to_dict(), dict)
+
+
 class ProductViewsTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -31,9 +35,9 @@ class ProductViewsTests(TestCase):
         seller.name = "sellerName"
         seller.seller_id = 1
         Seller.objects.create(name="sellerName", seller_id=1)
-        Product.objects.create(title="cadeira", price="5", id_product="32", qt_stock="8", seller_id=1, status= 'A')
-        Product.objects.create(title="mesa", price="15", id_product="8", qt_stock="3", seller_id=1, status= 'A')
-        Product.objects.create(title="computador", price="1000", id_product="6", qt_stock="1", seller_id=1, status= 'A')
+        Product.objects.create(title="cadeira", price= 5, id_product="32", qt_stock=8, seller_id=1, status= 'A')
+        Product.objects.create(title="mesa", price=15, id_product="8", qt_stock=3, seller_id=1, status= 'A')
+        Product.objects.create(title="computador", price=1000, id_product="6", qt_stock=1, seller_id=1, status= 'A')
     def test_index_expected_dict(self):
         data_assert = {'products': [
             {'title': 'cadeira', 'price': 5.0, 'id_product': 32, 'seller': 'sellerName', 'qt_stock': 8, 'status': 'A'},
@@ -59,3 +63,11 @@ class ProductViewsTests(TestCase):
         response = detail(request, 32)
         data = json.loads(response.content)
         self.assertEquals(data, data_assert)
+    def test_create_product_expected_dict(self):
+        payload = {'title': 'cadeira', 'price': 6.0, 'id_product': 88, 'seller_id': 1, 'qt_stock': 8, 'status': 'A'}
+        data_assert = {'title': 'cadeira', 'price': 6.0, 'id_product': 88, 'seller': 'sellerName', 'qt_stock': 8, 'status': 'A'}
+        request = Mock()
+        request.body = json.dumps(payload)
+        response = create_product(request)
+        data = json.loads(response.content)
+        self.assertEquals(data,{'product':  data_assert})
